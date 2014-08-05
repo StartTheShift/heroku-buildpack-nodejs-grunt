@@ -62,6 +62,7 @@ if test -d $build_dir/node_modules; then
   status "Rebuilding any native dependencies"
   npm rebuild 2>&1 | indent
 elif test -d $cache_dir/node/node_modules; then
+  rm -rf $cache_dir/node/node_modules
   status "Restoring node_modules directory from cache"
   cp -r $cache_dir/node/node_modules $build_dir/
 
