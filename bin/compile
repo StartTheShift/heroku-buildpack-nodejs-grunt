@@ -56,7 +56,13 @@ PATH=$PATH:$build_dir/vendor/node/bin
 cd $build_dir
 
 # Clear the node cache because it fails hard
-rm -rf $cache_dir/node/node_modules
+if [ -z "$CLEAR_HEROKU_BUILD_CACHE" ] ; then
+  echo "Reusing previous heroku NPM build cache"
+else
+  echo "Clearing previous build cache in $2"
+  rm -rf $cache_dir/node/node_modules
+fi
+
 
 # If node_modules directory is checked into source control then
 # rebuild any native deps. Otherwise, restore from the build cache.
